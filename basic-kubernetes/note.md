@@ -63,7 +63,7 @@ kubectl get pod -o wide
 ```bash
 kubectl describe pod namapod
 ```
-- Mengakses pod
+- Mengakses pod dan expose port dari sebuah pod
 ```bash
 kubectl port-forward namapod portAkses:portPod
 ```
