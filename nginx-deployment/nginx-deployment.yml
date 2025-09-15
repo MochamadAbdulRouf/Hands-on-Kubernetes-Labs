@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # Versi API Kubernetes yang digunakan
+kind: Deployment    # Jenis resource yang dibuat adalah Deployment
+metadata:
+  name: nginx-deployment # Nama Deployment
+spec:                    # Spesifikasi Deployment
+  replicas: 2            # Jumlah Pod identik yang ingin di jalankan
+  selector:              # Selektor untuk memilih pod yang dikelola
+    matchLabels:         
+      app: nginx         # Label pod yang harus cocok dengan Deployment
+  template:              # Template pod yang akan dibuat oleh Deployment
+    metadata:
+      labels:
+        app: nginx       # Label yang diberikan ke pod (harus sesuai selector)
+    spec:                # Spesifikasi Pod   
+      containers:
+      - name: nginx      # Nama container didalam pod
+        image: nginx:1.21.6 # Image Docker yang digunakan untuk container
+        ports:
+        - containerPort: 80 # Port yang dibuka container (HTTP default)

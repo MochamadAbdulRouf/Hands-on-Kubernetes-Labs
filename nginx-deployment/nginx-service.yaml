@@ -1,0 +1,13 @@
+# Untuk mengakses/Mengekspos Aplikasi dengan service
+apiVersion: v1    # Versi API Kubernetes untuk resource service
+kind: Service     # Jenis resource yang dibuat adalah service
+metadata:
+  name: nginx-service # Nama service
+spec:                 # Spesifikasi Service
+  selector:           # Selektor untuk memilih pod yang akan dihubungkan
+    app: nginx        # Label pod yang dipilih (harus sesuai dengan label pod di deployment)
+  ports:              # Daftar port yang diekspos oleh service
+    - protocol: TCP   # Protokol Komunikasi (TCP)
+      port: 80        # Port yang dibuka di service (port ekternal)
+      targetPort: 80  # Port tujuan di dalam pod (port aplikasi container)
+  type: NodePort      # Jenis service, NodePort memungkinkan akses melalui IP node + port
