@@ -2,6 +2,9 @@
 
 ## 1. Membuat Deployment
 kita akan mendeploy sebuah webserver Nginx. yang kita deploy adalah file bernama nginx-deployment.yaml
+```bash
+vim nginx-deployment.yaml
+```
 
 ## 2. Melakukan Deployment
 Eksekusi command berikut
