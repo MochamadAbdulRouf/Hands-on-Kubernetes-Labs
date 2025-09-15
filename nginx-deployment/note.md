@@ -25,6 +25,9 @@ kubectl get pods
 # Cara  mengekspos Aplikasi dengan service
 
 ## 1. Buat file bernama nginx-service.yml
+```bash
+vim nginx-service.yaml
+```
 
 ## 2. Terapkan konfigurasi service
 Eksekusi command berikut :
