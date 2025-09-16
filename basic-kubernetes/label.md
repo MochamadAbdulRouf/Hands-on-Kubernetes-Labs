@@ -89,4 +89,4 @@ pod-basic-nginx   1/1     Running   0          14m
 laborant@dev-machine:label-kube$ 
 ```
 
-Created by Mochamad Abdul Rouf
+Created by Mochamad Abdul Rouf 🧑🏻‍💻
