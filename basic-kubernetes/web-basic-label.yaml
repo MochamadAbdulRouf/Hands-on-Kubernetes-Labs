@@ -1,0 +1,16 @@
+# Basic fundamental label yang cocok untuk lebih mengenal anatomi sebuah pod.
+# Ini adalah cara mendefinisikan sebuah pod secara langsung (standalone pod).
+
+apiVersion: v1
+kind: Pod                   # Menentukan jenis objek yang akan dibuat
+metadata:                   # Metadata berisi data tentang object ini.
+  name: pod-basic-nginx     # nama pod ini
+  labels:                   # Label tempat kita membuat sebuah tags atau penanda
+    label1: webserver       # Pod ini memiliki 2 label
+    label2: development
+spec:                      
+  containers:                 # Setiap pod memiliki setidaknya 1 container didalam pod ini
+    - name: nginx-container
+      image: nginx:1.21
+      ports:
+        - containerPort: 80   # Container ini mendengarkan traffic di port 80

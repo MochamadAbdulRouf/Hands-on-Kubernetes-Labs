@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  # Bagian ini adalah kuncinya
+  # Service ini akan mencari semua pod yang cocok dengan selector ini
+  selector: 
+    app: my-webapp  # Ini adalah selector service

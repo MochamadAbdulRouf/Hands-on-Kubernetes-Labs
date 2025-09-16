@@ -1,0 +1,92 @@
+# Command untuk label yang telah di running
+## Ini hasil belajar otodidak saya.
+
+
+1. Mencari label berdasarkan keberadaan kunci
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l label1=webserver
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          119s
+```
+
+2. Melihat label pada pod yang telah di running
+```bash
+laborant@dev-machine:label-kube$ kubectl get pod --show-labels
+NAME              READY   STATUS    RESTARTS   AGE   LABELS
+pod-basic-nginx   1/1     Running   0          65s   label1=webserver,label2=development
+```
+
+3. Menambah label baru ke sebuah pod
+```bash
+laborant@dev-machine:label-kube$ kubectl label pod pod-basic-nginx owner=devops
+pod/pod-basic-nginx labeled
+laborant@dev-machine:label-kube$ kubectl get pod --show-labels
+NAME              READY   STATUS    RESTARTS   AGE     LABELS
+pod-basic-nginx   1/1     Running   0          3m33s   label1=webserver,label2=development,owner=devops
+```
+
+4. Memperbarui label yang sudah ada
+```bash
+laborant@dev-machine:label-kube$ kubectl label pod pod-basic-nginx label2=staging --overwrite
+pod/pod-basic-nginx labeled
+laborant@dev-machine:label-kube$ kubectl get pod --show-labels
+NAME              READY   STATUS    RESTARTS   AGE    LABELS
+pod-basic-nginx   1/1     Running   0          7m4s   label1=webserver,label2=staging,owner=devops
+```
+
+5. Mencari label berdasarkan keberadaan kunci
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l label1
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          7m37s
+laborant@dev-machine:label-kube$ 
+```
+
+6. Mencari pod dengan label yang tidak memiliki kunci tertentu
+```bash
+laborant@dev-machine:label-kube$ kubectl get pod -l '!tier'
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          8m55s
+```
+
+7. Mencari pod dengan label yang nilainya tidak sama
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l label2!=production
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          9m56s
+laborant@dev-machine:label-kube$ 
+```
+
+8. Mencari pod dengan label yang nilainya ada didalam daftar
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l 'label1 in (database, webserver, cache)'
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          11m
+laborant@dev-machine:label-kube$ 
+```
+
+9. Mencari pod dengan label yang nilainya tidak ada didalam daftar
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l 'label2 notin (production, development)'
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          12m
+laborant@dev-machine:label-kube$ 
+```
+
+10. Kondisi AND dengan keberadaan kunci
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l owner,label1=webserver
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          13m
+laborant@dev-machine:label-kube$ 
+```
+
+11. Kondisi AND dengan dua kecocokan persis
+```bash
+laborant@dev-machine:label-kube$ kubectl get pods -l label1=webserver,label2=staging
+NAME              READY   STATUS    RESTARTS   AGE
+pod-basic-nginx   1/1     Running   0          14m
+laborant@dev-machine:label-kube$ 
+```
+
+Created by Mochamad Abdul Rouf

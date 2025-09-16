@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+spec:
+  replicas: 3
+  selector:           # Bagian selector di Deployment ini memberitahu Deployment
+    matchLabels:      # Cara menemukan pod yang ia kelola.
+      app: my-webapp  # Ini adalah selector internal Deployment
+  # Template ini adalah cetak biru untuk Pod yang akan dibuat.
+  template:
+    metadata:
+      # Disinilah kita menempelkan label ke setiap pod yang akan dibuat
+      labels: 
+        app: my-webapp    # Label 1 mengidentifikasi aplikasi
+        tier: frontend    # Label 2 mengidentifikasi lapisan arsitektur
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
