@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backend-staging
+  labels:
+    # Label untuk identifikasi tim pemilik
+    team: backend
+    # Label untuk menandai lingkungan
+    environment: staging
+    # Label yang mungkin digunakan untuk pelacakan biaya (Cost allocation)
+    cost-center: "backend-dev"
+  annotations:
+    # Anotasi untuk deskripsi yang bisa dibaca manusia
+    description: "Namespace untuk tim Backend di lingkungan staging"
+    owner-contact: "backend-lead@example.com"
+    project-name: "PROJ-2025"
