@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-Deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: my-app-image:latest
+        ports:
+        - containerPort: 8000
+      
+      # Probe untuk memeriksa apakah aplikasi siap menerima traffic
+      readinessProbe:
+        httpGet:
+          path: /ready # Endpoint yang menandakan aplikasi siap
+          port: 8000
+        initialDelaySeconds: 15 # Tunggu 15 detik setelah container start sebelum probe pertama
+        periodSeconds: 10       # PEriksa setiap 10 detik
+        failureThreshold: 3     # Dianggap gagal setelah 3 kali gagal berturut turut
+      
+      # Probe untuk memerika apakah aplikasi masih hidup
+      livenessProbe:
+        httpGet:
+          path: /healthz # Endpoint yang menandakan aplikasi sehat
+          port: 8000
+        initialDelaySeconds: 30 # Tunggu 30 detik sebelum probe pertama
+        periodSeconds: 20       # Periksa setiap 20 detik
+        timeoutSeconds: 5       # Probe dianggap gagal jika tidak ada respons dalam 5 detik
