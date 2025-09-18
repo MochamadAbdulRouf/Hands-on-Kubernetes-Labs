@@ -21,16 +21,16 @@ spec:
       # Probe untuk memeriksa apakah aplikasi siap menerima traffic
       readinessProbe:
         httpGet:
-          path: /ready # Endpoint yang menandakan aplikasi siap
+          path: / # Endpoint yang menandakan aplikasi siap
           port: 8000
         initialDelaySeconds: 15 # Tunggu 15 detik setelah container start sebelum probe pertama
-        periodSeconds: 10       # PEriksa setiap 10 detik
+        periodSeconds: 10       # Periksa setiap 10 detik
         failureThreshold: 3     # Dianggap gagal setelah 3 kali gagal berturut turut
       
       # Probe untuk memerika apakah aplikasi masih hidup
       livenessProbe:
         httpGet:
-          path: /healthz # Endpoint yang menandakan aplikasi sehat
+          path: / # Endpoint yang menandakan aplikasi sehat
           port: 8000
         initialDelaySeconds: 30 # Tunggu 30 detik sebelum probe pertama
         periodSeconds: 20       # Periksa setiap 20 detik

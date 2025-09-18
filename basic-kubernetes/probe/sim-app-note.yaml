@@ -1,0 +1,49 @@
+# (Versi yang sudah diperbaiki) Karena awalnya ada beberapa yang salah
+# karena saya masih mencoba jadi tadinya masih banyak yang salah
+# Berikut kode yang telah di benahi dan di revisi oleh ai saat saya meminta evaluasi kode saya
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sim-health-app
+spec:
+  replicas: 1 # <-- Praktik yang baik untuk selalu definisikan jumlah replika
+  selector:
+    matchLabels:
+      app: sim-health
+  template: 
+    metadata:
+      labels:
+        app: sim-health
+    spec:
+      containers:
+      - name: sim-health-cn 
+        # --- BLOK INI SEMUA HARUS MENJOROK KE DALAM (INDENTED) ---
+        image: mochabdulrouf/sim-health-app:1.0 
+        ports:
+        - containerPort: 8080
+
+        # Probe ini berjalan pertama kali, beri waktu 50 detik (5x10) untuk startup
+        startupProbe:
+          httpGet:
+            path: /health 
+            port: 8080
+          # initialDelaySeconds: 0 # <-- DIHAPUS/DIUBAH: Sebaiknya mulai segera
+          periodSeconds: 10
+          failureThreshold: 5 # <-- DIUBAH: Memberi margin waktu lebih (50 detik > 25 detik)
+
+        # Probe ini aktif setelah startupProbe berhasil
+        livenessProbe:
+          httpGet: 
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15 # <-- Tunggu 15 detik lagi setelah startup berhasil
+          periodSeconds: 20 # <-- Praktik baik, beri jeda lebih panjang dari readiness
+
+        # Probe ini aktif setelah startupProbe berhasil
+        readinessProbe: 
+          httpGet:
+            path: /ready # <-- DIUBAH: Sesuai endpoint aplikasi kita
+            port: 8080
+          initialDelaySeconds: 5 # <-- Tunggu 5 detik setelah startup berhasil
+          periodSeconds: 10

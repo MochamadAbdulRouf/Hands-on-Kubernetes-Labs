@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sim-health-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sim-health
+  template:
+    metadata:
+      labels:
+        app: sim-health
+    spec:
+      containers:
+      - name: sim-health-cn 
+        image: mochabdulrouf/sim-health-app:1.0
+        ports:
+        - containerPort: 8080
+
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          periodSeconds: 10
+          failureThreshold: 5
+        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+

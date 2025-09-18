@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slow-startup-app-Deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slow-startup-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: my-slow-starting-app:latest
+        ports:
+        - containerPort: 8080
+
+        # STARTUP PROBE
+        # Probe ini berjalan pertama kali untuk memastikan aplikasi selesai startup
+        # Liveness & Readiness probe akan ditaham (tidak dijalankan) sampai probe ini berhasil
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          failureThreshold: 30 # Kubernetes akan mencoba sebanyak 30 kali, dengan jeda 10 detik setiap kali.
+          periodSeconds: 10    # Ini memberikan total waktu 300 detik (5 menit) bagi aplikasi untuk startup.
+
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
