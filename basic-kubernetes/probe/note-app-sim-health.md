@@ -1,4 +1,4 @@
-# DOKUMENTASI PROSES BERJALANNYA PRATIK PROBE DENGAN SEBUAH APLIKASI PYTHON UNTUK SIMULASI PROBE PADA KUBERNETES
+# DOKUMENTASI PROSES BERJALANNYA PRAKTEK PROBE DENGAN SEBUAH APLIKASI PYTHON UNTUK SIMULASI PROBE PADA KUBERNETES
 
 1. Deploy pod ke deployment
 ```bash
@@ -17,7 +17,7 @@ Jika kita lihat bagian event paling bawah sendiri ada logs berikut:
 ```bash
 Warning  Unhealthy  15s (x2 over 25s)  kubelet            Readiness probe failed: HTTP probe failed with statuscode: 503
 ```
-Kenapa hal itu bisa terjadi? Ingat di logika aplikasi python kita untuk endpoint (/ready).Aplikasi tersebut semgaja dirancang untuk Memulai proses startup 25 detik, Selama 25 detik jika ada yang mengakses /ready.Ia akan merespon dengan 503.Setelah 25 detik berlalau, enpoint (/ready) akan mulai merespon dengan 200 (OK).
+Kenapa hal itu bisa terjadi? Ingat di logika aplikasi python kita untuk endpoint (/ready).Aplikasi tersebut sengaja dirancang untuk Memulai proses startup 25 detik, Selama 25 detik jika ada yang mengakses /ready.Ia akan merespon dengan 503.Setelah 25 detik berlalau, enpoint (/ready) akan mulai merespon dengan 200 (OK).
 
 Pesan Warning Unhealthy yang kita lihat adalah bukti kubernetes sedang melakukan tugasnya dengan benar. Ia mendeteksi aplikasi belum siap dan menandai pod tersebut sebagai Unhealthy (Tidak sehat untuk menerima traffic).
 
@@ -96,7 +96,7 @@ sim-health-app-777d7b4dcf-bgq4w   1/1     Running   0          7m22s
 
 5. Mungkin kita bingung disini masih Unhealthy pada bagian event liveness padahal sudah lebih 25 detik!!
 
-Di event bukanlah hasil sesungguhnya karena bagian event hanyalah mencatat historis readinessProbe sekitar 7 menit lalu, yang sempat gagal 2 kali. Jadi kenapa masih ada? Kubernetes mencatat kegagalan ini sebagao warning lalu apakah masih terjadi? Tidak. JIka probe ini masih gagal, status Pod tidak akan pernah menjadi Ready: True atau READY 1/1.Fakta bahwa statusnya sudah sehat membuktikan probe tersebut sekarang sudah berhasil.Apa yang Anda lihat di Events adalah jejak dari proses startup tersebut.
+Di event bukanlah hasil sesungguhnya karena bagian event hanyalah mencatat historis readinessProbe sekitar 7 menit lalu, yang sempat gagal 2 kali. Jadi kenapa masih ada? Kubernetes mencatat kegagalan ini sebagai warning lalu apakah masih terjadi? Tidak. JIka probe ini masih gagal, status Pod tidak akan pernah menjadi Ready: True atau READY 1/1.Fakta bahwa statusnya sudah sehat membuktikan probe tersebut sekarang sudah berhasil.
 
 **Apa yang Anda lihat di Events adalah jejak dari proses startup tersebut**
 
