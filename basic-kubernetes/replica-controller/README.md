@@ -14,7 +14,7 @@ Replication Controller akan memastikan jumlah pod berjalan sesuai jumlah yang di
 Source gambar : PPT Programmer Zaman Now Kelas Kubernetes
 
 * Running pod
-````bash
+```bash
 laborant@dev-machine:replica-controller$ kubectl apply -f sim-app-replication.yaml
 ```
 
