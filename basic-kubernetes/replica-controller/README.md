@@ -12,3 +12,30 @@ Replication Controller akan memastikan jumlah pod berjalan sesuai jumlah yang di
 ![tp-rc-error](./image/tp-rc-problem.png)
 
 Source gambar : PPT Programmer Zaman Now Kelas Kubernetes
+
+* Running pod
+````bash
+laborant@dev-machine:replica-controller$ kubectl apply -f sim-app-replication.yaml
+```
+
+* Pod running
+```bash
+laborant@dev-machine:replica-controller$ kubectl get pod
+NAME                      READY   STATUS    RESTARTS   AGE
+sim-health-app-rc-4jdwp   1/1     Running   0          9m15s
+sim-health-app-rc-4q9pq   1/1     Running   0          9m15s
+sim-health-app-rc-nb4k2   1/1     Running   0          9m15s
+```
+
+* Melihat Replica Controller
+```bash
+laborant@dev-machine:replica-controller$ kubectl get replicationcontrollers 
+NAME                DESIRED   CURRENT   READY   AGE
+sim-health-app-rc   3         3         3       9m50s
+laborant@dev-machine:replica-controller$ kubectl get replicationcontroller
+NAME                DESIRED   CURRENT   READY   AGE
+sim-health-app-rc   3         3         3       9m53s
+laborant@dev-machine:replica-controller$ kubectl get rc
+NAME                DESIRED   CURRENT   READY   AGE
+sim-health-app-rc   3         3         3       10m
+```
