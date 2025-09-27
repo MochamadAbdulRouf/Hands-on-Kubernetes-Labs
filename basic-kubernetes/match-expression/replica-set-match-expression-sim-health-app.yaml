@@ -1,0 +1,46 @@
+apiVersion: apps/v1 
+kind: ReplicaSet
+metadata:
+  name: sim-health-app-rs 
+  labels:
+    progress: development 
+  annotations:
+    dev: rouf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      # Pod harus memiliki label ini
+      progress: development
+    matchExpressions:
+    # Pod harus memiliki label 'progress' dengan nilai 'developmeny' atau 'staging'
+      - key: progress # Ubah key menjadi progress
+        operator: In 
+        values:       # Masukan daftar string
+          - development
+          - staging 
+  template:
+    metadata:
+      name: sim-health-pod
+      labels:
+        progress: development
+      annotations:
+        develop-code: rouf 
+    spec:
+      containers:
+      - name: sim-health-cn 
+        image: mochabdulrouf/sim-health-app:1.0
+        ports:
+        - containerPort: 8080
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 1
+
+
