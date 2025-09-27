@@ -39,3 +39,16 @@ laborant@dev-machine:replica-controller$ kubectl get rc
 NAME                DESIRED   CURRENT   READY   AGE
 sim-health-app-rc   3         3         3       10m
 ```
+
+## Sebelum Menghapus Replication Controller
+* Saat kita menghapus Replication Controller, Maka Pod yang berada di label selector ikut terhapus
+* Jika kita ingin menghapus Replication Controller, tanpa menghapus Pod yang berada pada label selectornya, Kita bisa tambahkan opsi --cascade=false
+
+* Menghapus Replication Controller
+```bash
+kubectl delete rc sim-health-app-rc
+```
+* Menghapus Replication Controller saja
+```bash
+kubectl delete rc sim-health-app-rc --cascade=false
+```
