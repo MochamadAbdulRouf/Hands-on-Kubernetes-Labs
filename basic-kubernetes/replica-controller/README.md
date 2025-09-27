@@ -11,4 +11,4 @@ Replication Controller akan memastikan jumlah pod berjalan sesuai jumlah yang di
 ## Ketika Terjadi Masalah
 ![tp-rc-error](./image/tp-rc-problem.png)
 
-teks biru Source gambar : PPT Programmer Zaman Now Kelas Kubernetes
+Source gambar : PPT Programmer Zaman Now Kelas Kubernetes
