@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
       - name: sim-health-cn 
-        # --- BLOK INI SEMUA HARUS MENJOROK KE DALAM (INDENTED) ---
-        image: mochabdulrouf/sim-health-app:1.0 
+        # --- BLOK INI SEMUA HARUS MENGARAH KE DALAM (INDENTED) ---
+        image: mochabdulrouf/sim-health-app:1.0 # image container yang akan diunduh dan digunakan
         ports:
-        - containerPort: 8080
+        - containerPort: 8080 # Container ini akan menerima traffic di port 8080 didalam pod
 
         # Probe ini berjalan pertama kali, beri waktu 50 detik (5x10) untuk startup
         startupProbe:
@@ -39,6 +39,7 @@ spec:
             port: 8080
           initialDelaySeconds: 15 # <-- Tunggu 15 detik lagi setelah startup berhasil
           periodSeconds: 20 # <-- Praktik baik, beri jeda lebih panjang dari readiness
+          failureThreshold: 3
 
         # Probe ini aktif setelah startupProbe berhasil
         readinessProbe: 
@@ -47,3 +48,4 @@ spec:
             port: 8080
           initialDelaySeconds: 5 # <-- Tunggu 5 detik setelah startup berhasil
           periodSeconds: 10
+          failureThreshold: 3

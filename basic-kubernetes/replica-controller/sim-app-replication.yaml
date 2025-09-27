@@ -1,0 +1,33 @@
+# ReplicationController adalah object inti kubernetes yang lebih tua 
+# Jadi rc menggunakan apiVersion: v1 
+apiVersion: v1 
+kind: ReplicationController
+metadata:
+  name: sim-health-app-rc
+spec:
+  replicas: 3
+  selector:
+    app: sim-health-rc 
+  template:
+    metadata:
+      name: sim-health-pod
+      labels:
+        app: sim-health-rc
+    spec:
+      containers:
+      - name: sim-health-cn 
+        image: mochabdulrouf/sim-health-app:1.0
+        ports:
+        - containerPort: 8080
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 1
+
+
