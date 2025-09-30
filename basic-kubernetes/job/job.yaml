@@ -15,4 +15,4 @@
         restartPolicy: Never
         containers:
           - name: reactapp-job
-            image: mochabdulrouf/react-app
+            image: khannedy/nodejs-job 
