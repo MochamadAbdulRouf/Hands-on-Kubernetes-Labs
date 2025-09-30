@@ -33,28 +33,33 @@ kubectl delete cronjobs cronjob-nodejs
 ```
 
 ## IMPLEMENTASI
+1.
 ```bash
 laborant@dev-machine:cronjob$ kubectl apply -f nodejs-cronjob.yaml 
 cronjob.batch/cronjob-nodejs created
 ```
 
+2.
 ```bash
 laborant@dev-machine:cronjob$ kubectl get cronjobs.batch 
 NAME             SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 cronjob-nodejs   * * * * *   <none>     False     0        <none>          15s
 ```
 
+3.
 ```bash
 laborant@dev-machine:cronjob$ kubectl get cronjob
 NAME             SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 cronjob-nodejs   * * * * *   <none>     False     0        <none>          21s
 ```
 
+4.
 ```bash
 laborant@dev-machine:cronjob$ kubectl delete cronjob cronjob-nodejs 
 cronjob.batch "cronjob-nodejs" deleted from default namespace
 ```
 
+5.
 ```bash
 laborant@dev-machine:cronjob$ kubectl get cronjob
 No resources found in default namespace.
