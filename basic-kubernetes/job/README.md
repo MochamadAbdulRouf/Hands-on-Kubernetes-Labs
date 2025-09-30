@@ -1,5 +1,5 @@
 ## JOB KUBERNETES
-Job adalah resource di kubernetes yang digunakan untuk menjalankan Pod yang hanya berjalan sekali, Lalu berhenti
+* Job adalah resource di kubernetes yang digunakan untuk menjalankan Pod yang hanya berjalan sekali, Lalu berhenti
 pada Replication Controller, Replica Set, Daemon Set.Jika Pod mati
 , Maka secara otomatis akan dibuatkan ulang/Jalankan ulang
 
