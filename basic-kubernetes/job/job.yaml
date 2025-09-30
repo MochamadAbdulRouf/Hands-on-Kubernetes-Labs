@@ -1,0 +1,18 @@
+  apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: reactapp-job
+  spec:
+    # Menentukan bahwa job ini akan selesai jika sudah menghasilkan 4 Pod
+    completions: 4
+    # Menentukan bahwa job ini boleh menjalankan maksimal 2 Pod secara bersamaan
+    parallelism: 2
+
+    template:
+      spec:
+        # Menentukan jangan restart container dan membiarkan podnya gagal
+        # Job Controller akan membuat Pod baru lagi  
+        restartPolicy: Never
+        containers:
+          - name: reactapp-job
+            image: mochabdulrouf/react-app
