@@ -32,4 +32,20 @@ kubectl delete daemonsets nama-daemon-set
 kubectl delete daemonsets nginx-daemonset
 ```
 
+```bash
+laborant@dev-machine:daemon-set$ kubectl get daemonsets
+NAME              DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+nginx-daemonset   3         3         3       3            3           <none>          21s
+laborant@dev-machine:daemon-set$ kubectl get pods
+NAME                    READY   STATUS    RESTARTS   AGE
+nginx-daemonset-qwlm7   1/1     Running   0          3m32s
+nginx-daemonset-tj97w   1/1     Running   0          3m32s
+nginx-daemonset-whs6p   1/1     Running   0          3m32s
+laborant@dev-machine:daemon-set$ 
+```
 
+
+```bash
+laborant@dev-machine:daemon-set$ kubectl delete daemonsets nginx-daemonset
+daemonset.apps "nginx-daemonset" deleted from default namespace
+```
