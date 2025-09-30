@@ -17,4 +17,4 @@ spec:
           restartPolicy: Never
           containers: 
             - name: cronjob-nodejs
-              image: khannedy/nodejs-job
+              image: mochabdulrouf/prime-generator-app:2.1

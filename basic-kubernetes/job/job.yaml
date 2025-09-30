@@ -1,7 +1,7 @@
   apiVersion: batch/v1
   kind: Job
   metadata:
-    name: reactapp-job
+    name: prime-nodejs 
   spec:
     # Menentukan bahwa job ini akan selesai jika sudah menghasilkan 4 Pod
     completions: 4
@@ -14,5 +14,5 @@
         # Job Controller akan membuat Pod baru lagi  
         restartPolicy: Never
         containers:
-          - name: reactapp-job
-            image: khannedy/nodejs-job 
+          - name: prime-nodejs
+            image: mochabdulrouf/prime-generator-app:2.1
