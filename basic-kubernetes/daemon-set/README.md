@@ -32,6 +32,7 @@ kubectl delete daemonsets nama-daemon-set
 kubectl delete daemonsets nginx-daemonset
 ```
 
+* Implementasi LOG
 ```bash
 laborant@dev-machine:daemon-set$ kubectl get daemonsets
 NAME              DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
@@ -43,7 +44,6 @@ nginx-daemonset-tj97w   1/1     Running   0          3m32s
 nginx-daemonset-whs6p   1/1     Running   0          3m32s
 laborant@dev-machine:daemon-set$ 
 ```
-
 
 ```bash
 laborant@dev-machine:daemon-set$ kubectl delete daemonsets nginx-daemonset
