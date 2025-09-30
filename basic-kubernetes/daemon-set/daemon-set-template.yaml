@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: DaemonSet  # SET kind ke DaemonSet
 metadata:
   name: daemon-set-name
   labels:
