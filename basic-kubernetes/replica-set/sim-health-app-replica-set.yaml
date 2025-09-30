@@ -1,5 +1,3 @@
-# ReplicationController adalah object inti kubernetes yang lebih tua 
-# Jadi rc menggunakan apiVersion: v1 
 apiVersion: apps/v1 
 kind: ReplicaSet
 metadata:
