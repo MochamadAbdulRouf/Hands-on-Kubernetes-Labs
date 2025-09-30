@@ -31,6 +31,8 @@ kubectl delete cronjobs namacronjobs
 ```bash
 kubectl delete cronjobs cronjob-nodejs
 ```
+
+## IMPLEMENTASI
 ```bash
 laborant@dev-machine:cronjob$ kubectl apply -f nodejs-cronjob.yaml 
 cronjob.batch/cronjob-nodejs created
