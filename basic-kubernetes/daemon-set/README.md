@@ -4,7 +4,8 @@
 
 ## TOPOLOGI DAEMON SET
 ![tp-daemon-set](./image/top-daemon-set.png)
-
+source YT PPT Programmer Zaman Now
+ 
 ## Contoh kasus penggunaan Daemon Set
 * Aplikasi untuk monitoring Node
 * Aplikasi untuk mengambil log di Node
