@@ -12,22 +12,22 @@
 - Aplikasi untuk menarik dana pinjam yang jatuh tempo bulanan
 - dll.
 
-* Membuat Cron Job
+1. Membuat Cron Job
 ```bash
 kubectl apply -f nodejs.cronjob.yaml
 ```
 
-* Melihat semua Cron Job
+2. Melihat semua Cron Job
 ```bash
 kubectl get cronjobs
 ```
 
-* Menghapus Cron Job
+3. Menghapus Cron Job
 ```bash
 kubectl delete cronjobs namacronjobs
 ```
 
-* Menghapus Cron Job v2
+4. Menghapus Cron Job v2
 ```bash
 kubectl delete cronjobs cronjob-nodejs
 ```
