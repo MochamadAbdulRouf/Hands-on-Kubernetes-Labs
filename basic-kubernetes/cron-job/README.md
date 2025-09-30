@@ -6,11 +6,11 @@
 * Cron Job memungkinkan kita menjalankan aplikasi dengan waktu yang telah ditentukan
 
 * CONTOH PENGGUNAAN CRON JOB :
-- Aplikasi untuk membuat laporan harian
-- Aplikasi untuk membackup data secara berkala 
-- Aplikasi untuk mengirim data tagihan tiap bulan ke pihak lain
-- Aplikasi untuk menarik dana pinjam yang jatuh tempo bulanan
-- dll.
+a. Aplikasi untuk membuat laporan harian
+b. Aplikasi untuk membackup data secara berkala 
+c. Aplikasi untuk mengirim data tagihan tiap bulan ke pihak lain
+d. Aplikasi untuk menarik dana pinjam yang jatuh tempo bulanan
+e. dll.
 
 1. Membuat Cron Job
 ```bash
