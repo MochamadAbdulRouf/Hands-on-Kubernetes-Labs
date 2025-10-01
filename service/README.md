@@ -36,7 +36,7 @@ nginx-ds2kn   1/1     Running   0          80s   172.17.1.2   node01   <none>   
 
 3. Lihat Detail Label Pod
 ```bash
-controlplane ~/nginx-service ✖ kubectl get pod --show-labels
+controlplane ~/nginx-service ➜ kubectl get pod --show-labels
 NAME          READY   STATUS    RESTARTS   AGE     LABELS
 curl          1/1     Running   0          7m36s   name=curl
 nginx-28szp   1/1     Running   0          7m36s   web=nginx
@@ -46,7 +46,7 @@ nginx-ds2kn   1/1     Running   0          7m36s   web=nginx
 
 4. Lihat Service 
 ```bash
-controlplane ~/nginx-service ✖ kubectl get svc
+controlplane ~/nginx-service ➜ kubectl get svc
 NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 kubernetes      ClusterIP   172.20.0.1      <none>        443/TCP    38m
 nginx-service   ClusterIP   172.20.89.190   <none>        8080/TCP   3m45s
