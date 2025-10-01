@@ -89,3 +89,90 @@ Commercial support is available at
 </html>
 / # exit 
 ```
+
+# Mengakses Service
+**Bagaimana Cara Mengakses Service** Misal Aplikasi di Pod butuh mengakses Pod lain, Bagaimana cara mengetahu IP Address Service tersebut? Cara manual adalah dengan membuat service lalu memasukan konfigurasi aplikasinya secara manual.Cara otomatis menggunakan:
+- Environment variable
+- DNS
+
+1. Melihat Environment Variable
+```bash
+kubectl exec namapod -- env
+```
+* Implementasi
+```bash
+controlplane ~/nginx-service ➜ kubectl exec nginx-28szp -- env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=nginx-28szp
+NGINX_VERSION=1.29.1
+NJS_VERSION=0.9.1
+NJS_RELEASE=1~bookworm
+PKG_RELEASE=1~bookworm
+DYNPKG_RELEASE=1~bookworm
+KUBERNETES_PORT=tcp://172.20.0.1:443
+KUBERNETES_PORT_443_TCP_PORT=443
+NGINX_SERVICE_PORT=tcp://172.20.89.190:8080
+NGINX_SERVICE_PORT_8080_TCP=tcp://172.20.89.190:8080
+NGINX_SERVICE_PORT_8080_TCP_PORT=8080
+NGINX_SERVICE_PORT_8080_TCP_ADDR=172.20.89.190
+KUBERNETES_PORT_443_TCP_ADDR=172.20.0.1
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+NGINX_SERVICE_SERVICE_PORT=8080
+NGINX_SERVICE_PORT_8080_TCP_PROTO=tcp
+KUBERNETES_SERVICE_HOST=172.20.0.1
+KUBERNETES_PORT_443_TCP=tcp://172.20.0.1:443
+NGINX_SERVICE_SERVICE_HOST=172.20.89.190
+HOME=/root
+```
+
+2. Melihat semua Endpoint
+```bash
+controlplane ~/nginx-service ➜  kubectl get endpoints
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME            ENDPOINTS                                   AGE
+kubernetes      192.168.140.46:6443                         62m
+nginx-service   172.17.1.2:80,172.17.1.4:80,172.17.1.5:80   27m
+```
+
+3. Menggunakan Domain
+
+- Masuk ke Container curl dulu
+```bash
+kubectl exec curl -it -- /bin/sh
+```
+
+example 
+```bash
+nama-service.nama-namespace.svc.cluster.local
+```
+
+- Lalu curl ke domain service
+```bash
+/ # curl http://nginx-service.default.svc.cluster.local:8080/
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+/ # 
+```
