@@ -6,18 +6,19 @@ Node bisa dibuat dengan spesifikasi yang berbeda dari Node biasanya, Misal Node 
 kubectl label node namanode key=value
 ```
 ### Implementasi Pod Selector
-1.
+1. Running Pod
 ```bash
 kubectl apply -f pod-selector.yaml
 ```
-2.
+2. Memberi label ke node
 ```bash
 kubectl label nodes namanode gpu=true
 ```
 
-3.
+3. Implementasi memberi label, running pod selector node, dan melihat status pod
 ```bash
 laborant@dev-machine:pod-sel$ kubectl label nodes node-01 gpu=true
+node/node-01 labeled
 laborant@dev-machine:pod-sel$ kubectl apply -f pod.yaml 
 pod/pod-nginx created
 laborant@dev-machine:pod-sel$ kubectl get pod
@@ -25,7 +26,7 @@ NAME        READY   STATUS              RESTARTS   AGE
 pod-nginx   0/1     ContainerCreating   0          5s
 ```
 
-4.
+4. Melihat Pod apakah sudah running dan Hanya running di node-01 yang telah diberi label
 ```bash
 laborant@dev-machine:pod-sel$ kubectl get pod
 NAME        READY   STATUS    RESTARTS   AGE
@@ -35,7 +36,7 @@ NAME        READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED 
 pod-nginx   1/1     Running   0          56s   10.244.1.2   node-01   <none>           <none>
 ```
 
-5.
+5. Melihat label pada node yang telah diberi secara manual
 ```bash
 laborant@dev-machine:pod-sel$ kubectl get node --show-labels
 NAME        STATUS   ROLES           AGE     VERSION   LABELS
