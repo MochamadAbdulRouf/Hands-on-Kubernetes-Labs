@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-set-nginx
+  labels:
+    webserver: nginx
+  annotations:
+    dev: rouf
+spec:
+  selector:
+    matchLabels:
+      webserver: nginx
+    matchExpressions:
+      - key: webserver
+        operator: In
+        values:
+          - nginx 
+  template:
+    metadata:
+      name: pod-nginx
+      labels:
+        webserver: nginx
+    spec:
+      nodeSelector:
+        hardisk: ssd
+      containers:
+        - name: cn-nginx 
+          image: nginx:1.28-alpine
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 0 # Tunda pemeriksaan pertama 0 detik
+            periodSeconds: 10      # Ulangi pemeriksaan setiap 10 detik
+            failureThreshold: 3    # Anggap Container tidak sehat jika sudah 3 kali gagal terus
+            successThreshold: 1    # Setelah dianggap tidak sehat, container akan dianggap sehat kembali setelah 1 pemeriksaan berhasil
+            timeoutSeconds: 1      # Anggap pemeriksaan gagal jika tidak ada respon selama 1 detik
+      
+

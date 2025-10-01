@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet 
+metadata:
+  name: replica-set-sim-health
+  labels:
+    app: sim-health
+  annotations:
+    dev: rouf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sim-health
+  template:
+    metadata:
+      name: pod-sim-health
+      labels:
+        app: sim-health
+    spec:
+      nodeSelector:
+        hardisk: ssd
+      containers:
+      - name: cn-sim-health
+        image: mochabdulrouf/sim-health-app:1.0
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 5

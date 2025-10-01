@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-job-nodejs
+  labels:
+    app: nodejs
+  annotations:
+    dev: rouf
+    production: "30-9-2025"
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: pod-nodejs
+          labels:
+            app: nodejs
+        spec:
+          restartPolicy: Never
+          nodeSelector:
+            hardisk: ssd
+          containers:
+            - name: cn-nodejs
+              image: mochabdulrouf/prime-generator-app:2.1
+
+        

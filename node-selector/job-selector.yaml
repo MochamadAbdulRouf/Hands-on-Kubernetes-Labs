@@ -1,22 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pod-nginx
+  name: pod-nodejs
+  # Label untuk Job
   labels:
-    webserver: nginx
+    app: nodejs 
   annotations:
     dev: rouf
 spec:
   completions: 5
-  parallelism: 2
-  selector:
-    matchLabels:
-      webserver: nginx
+  parallelism: 2  
+  # Label untuk Pod
   template:
     metadata:
-      name: pod-nginx
+      name: pod-nodejs
       labels:
-        webserver: nginx
+        app: nodejs
     spec:
       restartPolicy: Never
       nodeSelector:
@@ -24,5 +23,3 @@ spec:
       containers:
         - name: cn-nginx
           image: mochabdulrouf/prime-generator-app:2.1
-          ports:
-            - containerPort: 80
