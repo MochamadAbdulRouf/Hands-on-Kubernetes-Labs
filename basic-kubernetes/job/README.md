@@ -58,3 +58,6 @@ kubectl get job
 kubectl delete job namajob
 ```
 
+## Mengapa Job dan CronJob tidak bisa diberi Selector?
+- Karena Job dan CronJob mengelola selectornya sendiri secara otomatis, Untuk menjamin setiap task berjalan dengan benar tanpa menumpuk.
+
