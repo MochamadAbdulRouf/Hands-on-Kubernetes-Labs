@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pod-nginx
+  labels:
+    webserver: nginx
+  annotations:
+    dev: rouf
+spec:
+  completions: 5
+  parallelism: 2
+  selector:
+    matchLabels:
+      webserver: nginx
+  template:
+    metadata:
+      name: pod-nginx
+      labels:
+        webserver: nginx
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        hardisk: ssd
+      containers:
+        - name: cn-nginx
+          image: mochabdulrouf/prime-generator-app:2.1
+          ports:
+            - containerPort: 80

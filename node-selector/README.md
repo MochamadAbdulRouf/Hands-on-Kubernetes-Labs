@@ -43,3 +43,22 @@ cplane-01   Ready    control-plane   2m47s   v1.34.1   beta.kubernetes.io/arch=a
 node-01     Ready    <none>          2m34s   v1.34.1   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,gpu=true,kubernetes.io/arch=amd64,kubernetes.io/hostname=node-01,kubernetes.io/os=linux
 node-02     Ready    <none>          2m33s   v1.34.1   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=node-02,kubernetes.io/os=linux
 ```
+
+### Implementasi Job Selector
+* Berikan label ke node yang ditentukan
+```bash
+kubectl label nodes node-01 hardisk: ssd
+```
+* Running Job
+```bash
+kubectl apply -f job-selector.yaml
+```
+* Lihat pod berjalan di node mana
+```bash
+kubectl get pod -o wide
+```
+
+### Alur Job Selector
+- Job Controller melihat target completions: 5 dan parallelism 2
+- Scheduler Kubernetes akan mengambil alih dan mencari node yang mempunyai label "hardisk: ssd" Jika tidak ada maka pod akan pending selamanya
+- Proses berjalan lanjut ke Job controller sampai mencapai target completions
