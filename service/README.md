@@ -12,4 +12,4 @@ Client bisa mengakses service tersebut, dan secara otomatis akan meneruskan ke P
 ![akses-service](./image/akses-via-service.png)
 
 # Membuat Service
-_Bagaimana menentukan Pod Untuk Service?_ Service akan mendistribusikan traffic ke Pod yang ada dibelakangnya supaya seimbang, Service akan menggunakan label selector untuk mengetahui Pod mana yang ada di belakang service tersebut
+**Bagaimana menentukan Pod Untuk Service?** Service akan mendistribusikan traffic ke Pod yang ada dibelakangnya supaya seimbang, Service akan menggunakan label selector untuk mengetahui Pod mana yang ada di belakang service tersebut
