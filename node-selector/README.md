@@ -49,6 +49,10 @@ node-02     Ready    <none>          2m33s   v1.34.1   beta.kubernetes.io/arch=a
 ```bash
 kubectl label nodes node-01 hardisk: ssd
 ```
+* Lihat label pada node
+```bash
+kubectl get node --show-labels
+```
 * Running Job
 ```bash
 kubectl apply -f job-selector.yaml
