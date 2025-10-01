@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: pod-nginx
+spec:
+  nodeSelector:
+    gpu: "true" # Secara manual nanti user memberikan label yang sama dengan node selector
+  containers:
+    - name: nginx
+      image: nginx:1.28-alpine
+      ports:
+        - containerPort: 80
