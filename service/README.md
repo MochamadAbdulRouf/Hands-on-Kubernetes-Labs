@@ -255,3 +255,26 @@ controlplane ~/example ➜  kubectl exec curl -it -- /bin/sh
 </html>
 / # 
 ```
+
+# Service Node Port
+
+
+!<Topology Node Poer>
+
+
+## Topology Node Port
+![topologi-node-port](./image/diagram-topologi-node-port.png)
+
+- 1. Running Replica Set dan Service
+```bash
+controlplane ~/node-port ➜  kubectl apply -f service-node-port.yaml 
+replicaset.apps/nginx created
+service/nginx-service unchanged
+```
+
+- 2. Lihat pada bagian PORT di service yang telag dibuat
+```bash
+controlplane ~/node-port ➜  kubectl get service nginx-service -o wide
+NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+nginx-service   NodePort   172.20.60.58   <none>        80:30001/TCP   3m52s   web=nginx
+```
