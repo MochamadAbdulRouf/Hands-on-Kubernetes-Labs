@@ -363,11 +363,9 @@ fe00::2 ip6-allrouters
 # Entries added by HostAliases.
 10.0.0.6        docker-registry-mirror.kodekloud.com
 10.0.0.6 docker-registry-mirror.kodekloud.com
-
-controlplane ~/ingress ➜ 
 ```
 
-4. Lalu coba curl ke alamat hostname
+4. Lalu coba curl ke alamat hostname, Jika berhasil nginx akan merespon seperti berikut.
 ```bash
 controlplane ~/ingress ➜  curl http://nginx.rouf.local/
 <!DOCTYPE html>
@@ -394,3 +392,6 @@ Commercial support is available at
 </body>
 </html>
 ```
+
+
+Semua Resource Topology dan diagram dan materi saya berasal dari explore menggunakan Ai, Dokumentasi Kubernetes, dan Bantuan materi dari YT : https://www.youtube.com/@ProgrammerZamanNow
