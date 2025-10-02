@@ -311,3 +311,86 @@ NAME            TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 kubernetes      ClusterIP      172.20.0.1       <none>        443/TCP        63m
 nginx-service   LoadBalancer   172.20.194.198   <pending>     80:31578/TCP   6m31s
 ```
+
+# Service Ingress 
+* Ingress adalah salah satu cara yang digunakan untuk exposes service. Berbeda dengan Node Port dan Load Balance yang perlu tahu semua alamat IPnya, dengan menggunakan Ingress Client hanya perlu tahu 1 alamat IP Ingress saja.Ketika client request service ke ingress maka pemilihan service ditentukan melalui hostname dari request.
+* Ingress hanya mendukung protocol HTTP
+
+## Diagram Ingress
+![diagram-ingress](./image/diagram-ingress.png)
+
+1. Running Ingress, Replica Set, Service.
+```bash
+controlplane ~/ingress ➜  kubectl apply -f ingress.yaml 
+replicaset.apps/nginx unchanged
+service/nginx-service unchanged
+ingress.networking.k8s.io/nginx-ingress created
+```
+
+2. Lihat Semua Resource dan Melihat Ingress berjalan atau tidak
+```bash
+controlplane ~/ingress ➜  kubectl get all
+NAME              READY   STATUS    RESTARTS   AGE
+pod/nginx-9mdvf   1/1     Running   0          6m13s
+pod/nginx-mn6hl   1/1     Running   0          6m13s
+pod/nginx-zsrml   1/1     Running   0          6m13s
+
+NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes      ClusterIP   172.20.0.1       <none>        443/TCP   68m
+service/nginx-service   ClusterIP   172.20.200.249   <none>        80/TCP    6m13s
+
+NAME                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx   3         3         3       6m13s
+
+controlplane ~/ingress ➜  kubectl get ingresses
+NAME            CLASS    HOSTS              ADDRESS   PORTS   AGE
+nginx-ingress   <none>   nginx.rouf.local             80      2m49s
+```
+
+3. Masukan ip service ke /etc/hosts dan masukan alamat hostname yang ada di ingress
+```bash
+controlplane ~/ingress ➜  cat /etc/hosts
+# Kubernetes-managed hosts file.
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+fe00::0 ip6-mcastprefix
+fe00::1 ip6-allnodes
+fe00::2 ip6-allrouters
+192.168.140.48  controlplane
+172.20.200.249 nginx.rouf.local # MASUKAN DENGAN FORMAT SEPERTI INI
+
+# Entries added by HostAliases.
+10.0.0.6        docker-registry-mirror.kodekloud.com
+10.0.0.6 docker-registry-mirror.kodekloud.com
+
+controlplane ~/ingress ➜ 
+```
+
+4. Lalu coba curl ke alamat hostname
+```bash
+controlplane ~/ingress ➜  curl http://nginx.rouf.local/
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
