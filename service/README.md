@@ -394,4 +394,4 @@ Commercial support is available at
 ```
 
 
-Semua Resource Topology dan diagram dan materi saya berasal dari explore menggunakan Ai, Dokumentasi Kubernetes, dan Bantuan materi dari YT : https://www.youtube.com/@ProgrammerZamanNow
+Semua Resource Topologi, Diagram, dan Materi saya berasal dari explore menggunakan Ai, Dokumentasi Kubernetes, dan Bantuan materi dari YT : https://www.youtube.com/@ProgrammerZamanNow
