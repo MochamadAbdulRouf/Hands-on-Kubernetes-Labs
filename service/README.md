@@ -319,7 +319,36 @@ nginx-service   LoadBalancer   172.20.194.198   <pending>     80:31578/TCP   6m3
 ## Diagram Ingress
 ![diagram-ingress](./image/diagram-ingress.png)
 
-1. Running Ingress, Replica Set, Service.
+1. Menjalankan Ingress di k8s
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
+```
+    
+- Implementasi
+```bash
+controlplane ~ ➜  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
+namespace/ingress-nginx created
+serviceaccount/ingress-nginx created
+serviceaccount/ingress-nginx-admission created
+role.rbac.authorization.k8s.io/ingress-nginx created
+role.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+configmap/ingress-nginx-controller created
+service/ingress-nginx-controller created
+service/ingress-nginx-controller-admission created
+deployment.apps/ingress-nginx-controller created
+job.batch/ingress-nginx-admission-create created
+job.batch/ingress-nginx-admission-patch created
+ingressclass.networking.k8s.io/nginx created
+validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
+```
+
+2. Running Ingress, Replica Set, Service.
 ```bash
 controlplane ~/ingress ➜  kubectl apply -f ingress.yaml 
 replicaset.apps/nginx unchanged
@@ -327,7 +356,7 @@ service/nginx-service unchanged
 ingress.networking.k8s.io/nginx-ingress created
 ```
 
-2. Lihat Semua Resource dan Melihat Ingress berjalan atau tidak
+3. Lihat Semua Resource dan Melihat Ingress berjalan atau tidak
 ```bash
 controlplane ~/ingress ➜  kubectl get all
 NAME              READY   STATUS    RESTARTS   AGE
@@ -347,7 +376,7 @@ NAME            CLASS    HOSTS              ADDRESS   PORTS   AGE
 nginx-ingress   <none>   nginx.rouf.local             80      2m49s
 ```
 
-3. Masukan ip service ke /etc/hosts dan masukan alamat hostname yang ada di ingress
+4. Masukan ip service ke /etc/hosts dan masukan alamat hostname yang ada di ingress
 ```bash
 controlplane ~/ingress ➜  cat /etc/hosts
 # Kubernetes-managed hosts file.
@@ -365,7 +394,7 @@ fe00::2 ip6-allrouters
 10.0.0.6 docker-registry-mirror.kodekloud.com
 ```
 
-4. Lalu coba curl ke alamat hostname, Jika berhasil nginx akan merespon seperti berikut.
+5. Lalu coba curl ke alamat hostname, Jika berhasil nginx akan merespon seperti berikut.
 ```bash
 controlplane ~/ingress ➜  curl http://nginx.rouf.local/
 <!DOCTYPE html>
