@@ -176,3 +176,82 @@ Commercial support is available at
 </html>
 / # 
 ```
+
+
+# Service External
+Service biasanya digunakan untuk komunikasi internal antar Pod, Namun ada juga Service yang bisa gunakan untuk komunikasi dengan aplikasi external yang berada di luar kubernetes cluster yaitu bernama **Service External**.
+
+### Implementasi Service External
+Disini coba membuat hubungan koneksi external dengan website example.com menggunakan **Service External**.
+
+1. Running Pod dan Service External
+```bash
+controlplane ~/example ➜  kubectl apply -f service.yaml 
+service/example-service created
+pod/curl created
+```
+
+2. Lihat Service dan Pod
+```bash
+controlplane ~/example ➜  kubectl get pod
+NAME   READY   STATUS    RESTARTS   AGE
+curl   1/1     Running   0          7s
+
+controlplane ~/example ➜  kubectl get svc
+NAME              TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+example-service   ExternalName   <none>       example.com   80/TCP    12s
+kubernetes        ClusterIP      172.20.0.1   <none>        443/TCP   3h34m
+```
+
+3. Masuk ke Container Tester dan Mencoba curl ke example.com menggunakan Koneksi dari Service External
+```bash
+controlplane ~/example ➜  kubectl exec curl -it -- /bin/sh
+/ # curl http://example.com/
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+    body {
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        
+    }
+    div {
+        width: 600px;
+        margin: 5em auto;
+        padding: 2em;
+        background-color: #fdfdff;
+        border-radius: 0.5em;
+        box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
+    }
+    a:link, a:visited {
+        color: #38488f;
+        text-decoration: none;
+    }
+    @media (max-width: 700px) {
+        div {
+            margin: 0 auto;
+            width: auto;
+        }
+    }
+    </style>    
+</head>
+
+<body>
+<div>
+    <h1>Example Domain</h1>
+    <p>This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.</p>
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+</div>
+</body>
+</html>
+/ # 
+```
