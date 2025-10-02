@@ -281,6 +281,12 @@ nginx-service   NodePort   172.20.60.58   <none>        80:30001/TCP   3m52s   w
 
 * Oleh karena itu Di Kubernetes Nantinya pada bagian Service LoadBalancer hanya akan Pending terus untuk EXTERNAL IP nya.
 
+## Diagram Load Balancer
+![diagram-loadbalancer-service](./image/diagram-load-balancer-service.png)
+
+## Diagram Multi Load Balancer
+![diagram-multi-loadbalancer-service](./image/diagram-multi-load-balancer.png)
+
 1. lihat Pod dan Labelnya
 ```bash
 controlplane ~/load-balancer ➜  kubectl get pod --show-labels
