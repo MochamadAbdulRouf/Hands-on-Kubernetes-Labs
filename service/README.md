@@ -257,7 +257,7 @@ controlplane ~/example ➜  kubectl exec curl -it -- /bin/sh
 ```
 
 # Service Node Port
-* Mengekspos Service pada setiap IP node dan Port yang sama.Kita dapat mengakses service dengan tipe ini, Ini dari luar cluster melalui <NodeIP>:<NodePORT>
+* Mengekspos Service pada setiap IP node dan Port yang sama.Kita dapat mengakses service dengan tipe ini, Ini dari luar cluster
 
 ## Topology Node Port
 ![topologi-node-port](./image/diagram-topologi-node-port.png)
