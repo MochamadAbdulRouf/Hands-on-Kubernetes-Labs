@@ -275,3 +275,33 @@ controlplane ~/node-port ➜  kubectl get service nginx-service -o wide
 NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE     SELECTOR
 nginx-service   NodePort   172.20.60.58   <none>        80:30001/TCP   3m52s   web=nginx
 ```
+
+# Service LoadBalancer 
+* Service LoadBalancer adalah sebuah service yang akan melakukan load balance request ke Node Port, Namun Service ini membutuhkan Cloud Provider untuk mendapatkan ekternal IP nya. Kubernetes membutuhkan Load Balancer dari Cloud Provider seperti AWS atau GCP untuk meminta dibuatkan Load Balancer menggunakan layanan Load Balance Cloud.Supaya Service Load Balancer nantinya mendapatkan IP Public dari Cloud Provider.
+
+* Oleh karena itu Di Kubernetes Nantinya pada bagian Service LoadBalancer hanya akan Pending terus untuk EXTERNAL IP nya.
+
+1. lihat Pod dan Labelnya
+```bash
+controlplane ~/load-balancer ➜  kubectl get pod --show-labels
+NAME          READY   STATUS    RESTARTS   AGE   LABELS
+nginx-cvrzf   1/1     Running   0          54s   web=nginx
+nginx-f62wr   1/1     Running   0          54s   web=nginx
+nginx-m6jmb   1/1     Running   0          54s   web=nginx
+```
+
+2. Lihat Service dan EXTERNAL IP pending karena tidak menggunakan cloud provider. Saya praktik di local vm saja
+```bash
+controlplane ~/load-balancer ➜  kubectl get svc
+NAME            TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP      172.20.0.1       <none>        443/TCP        57m
+nginx-service   LoadBalancer   172.20.194.198   <pending>     80:31578/TCP   58s
+```
+3. Mencoba menunggu dan memang akan pending terus selama belum ada Cloud Provider yang terhubung
+
+```bash
+controlplane ~/load-balancer ➜  kubectl get svc
+NAME            TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP      172.20.0.1       <none>        443/TCP        63m
+nginx-service   LoadBalancer   172.20.194.198   <pending>     80:31578/TCP   6m31s
+```
