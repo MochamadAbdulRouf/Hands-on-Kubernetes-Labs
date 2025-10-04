@@ -9,10 +9,33 @@
 - nfs, Sharing netwrok file system
 - DLL. https://kubernetes.io/id/docs/concepts/storage/volumes/#jenis-jenis-volume
 
-# Implementasi Volume Jenis emptyDir
+## Bagaimana Kode NodeJS bisa bekerja di Kubernetes Volume
+Di NodeJS ada kode berikut 
+```bash
+let location = process.env.HTML_LOCATION;
+if (!location) {
+  location = "/app/html";
+}
+```
+Kode tersebut memberitahu bahwa dia butuh lokasi direktori untuk menulis filenya.
+Lalu di Kubernetes Volume dia menyediakan lokasinya di kode berikut.
+- Di bagian Volume dia menyediakan direktori kosong bernama html
+```bash
+volumes:
+  - name: html 
+    emptyDir: {}
+```
+- Di bagian Volume Mounts dia berperan memasang Volume ke direktori html dan membuatnya bisa di akses didalam container melalui alamat /app/html
+```bash
+volumeMounts:
+  - mountPath: /app/html
+    name: html
+```
+
+## Implementasi Volume Jenis emptyDir
 1. Running Pod
 ```bash
-controlplane ~/nodejs-writer ➜  kubectl apply -f nodejs-volume.yaml 
+controlplane ~/nodejs-writer ➜  kubectl apply -f pod-nodejs-writer.yaml 
 pod/nodejs-writer created
 ```
 
@@ -25,21 +48,15 @@ nodejs-writer   1/1     Running   0          16s   172.17.1.2   node01   <none> 
 
 3. Masuk ke container nodejs dan melihat apakah volume berhasil
 ```bash
-controlplane ~/nodejs-writer ➜  kubectl exec nodejs-writer -it -- /bin/sh
-/ # ls
-app     app.js  bin     dev     etc     home    lib     media   mnt     opt     proc    root    run     sbin    srv     sys     tmp     usr     var
-/ # ls app
-html
-/ # cat app
-app.js  app/
-/ # cat app
-app.js  app/
-/ # cat app
-app.js  app/
-/ # cat app/html/
-cat: read error: Is a directory
-/ # cat app/html/index.html 
-app.js  app/    bin/    dev/    etc/    home/   lib/    media/  mnt/    opt/    proc/   root/   run/    sbin/   srv/    sys/    tmp/    usr/    var/
-/ # cat app/html/index.html 
-<html><body>Sat Oct 04 2025 13:39:39 GMT+0000 (Coordinated Universal Time)</body></html>/ # 
+controlplane ~/nodejs-volume ➜  kubectl exec nodejs-writer -it -- /bin/sh
+/app # ls
+html       writer.js
+/app # ls html/
+index.html
+/app # ls html/^C
+
+/app # cat html/index.html 
+<html><body>Sat Oct 04 2025 14:25:50 GMT+0000 (Coordinated Universal Time)</body></html>/app # 
 ```
+
+Note: diatas bisa dilihat bahwa ketika masuk ke container dia langsung masuk ke direktori app karena itu di Dockerfilenya bagian WORKDIR di isi /app, Karena itu ketika masuk ke container otomatis masuk ke direktori /app

@@ -12,7 +12,7 @@ spec:
       emptyDir: {}
   containers: 
     - name: nodejs-writer
-      image: khannedy/nodejs-writer
+      image: mochabdulrouf/nodejs-writer-v3
       # Memasang volume html ke path /app/html didalam container
       volumeMounts:
         - mountPath: /app/html
