@@ -17,15 +17,15 @@ if (!location) {
   location = "/app/html";
 }
 ```
-Kode tersebut memberitahu bahwa dia butuh lokasi direktori untuk menulis filenya.
-Lalu di Kubernetes Volume dia menyediakan lokasinya di kode berikut.
-- Di bagian Volume dia menyediakan direktori kosong bernama html
+Kode tersebut memberitahu bahwa aplikasi butuh lokasi direktori untuk menulis filenya.
+Lalu di Kubernetes Volume menyediakan lokasinya di kode berikut.
+- Di bagian Volume menyediakan direktori kosong bernama html
 ```bash
 volumes:
   - name: html 
     emptyDir: {}
 ```
-- Di bagian Volume Mounts dia berperan memasang Volume ke direktori html dan membuatnya bisa di akses didalam container melalui alamat /app/html
+- Di bagian Volume Mounts berperan memasang Volume ke direktori html dan membuatnya bisa di akses didalam container melalui alamat /app/html
 ```bash
 volumeMounts:
   - mountPath: /app/html
