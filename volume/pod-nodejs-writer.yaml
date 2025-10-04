@@ -1,0 +1,19 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: nodejs-writer
+  labels:
+    app: nodejs
+spec:
+  volumes:
+    # Memberi nama volume html
+    # Menentukan jenis volume yaitu "emptyDir"
+    - name: html 
+      emptyDir: {}
+  containers: 
+    - name: nodejs-writer
+      image: khannedy/nodejs-writer
+      # Memasang volume html ke path /app/html didalam container
+      volumeMounts:
+        - mountPath: /app/html
+          name: html

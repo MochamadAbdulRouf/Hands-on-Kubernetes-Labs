@@ -1,0 +1,46 @@
+# Menentukan versi API. 'batch/v1' adalah yang benar untuk Job.
+apiVersion: batch/v1
+
+# Menentukan jenis objek, yaitu Job (tugas sekali jalan).
+kind: Job
+
+# Metadata untuk objek Job itu sendiri.
+metadata:
+  name: python-writer-job
+
+# Spesifikasi yang mendefinisikan perilaku Job.
+spec:
+  # Template adalah "cetak biru" untuk Pod yang akan dibuat.
+  template:
+    # Spesifikasi untuk Pod.
+    spec:
+      # Daftar container yang akan berjalan di dalam Pod.
+      containers:
+      - name: python-writer-container
+        # Image Docker dari aplikasi Python Anda.
+        # Anda harus mengganti ini dengan nama image Anda yang sebenarnya.
+        image: your-dockerhub-username/python-writer:v1
+
+        # Menyetel 'environment variable' di dalam container.
+        env:
+        - name: LOG_PATH           # Nama variabel.
+          value: /app/data          # Nilainya. Ini memberitahu skrip Python di mana harus menulis file.
+        
+        # "Memasang" volume ke dalam container.
+        volumeMounts:
+        - name: log-data            # Nama volume yang akan dipasang.
+          mountPath: /app/data      # Lokasi pemasangan di dalam container.
+
+      # Jika Pod gagal, Job akan membuat Pod baru untuk mencoba lagi.
+      # Jika Pod berhasil, Job tidak akan melakukan apa-apa.
+      restartPolicy: OnFailure
+      
+      # Mendeklarasikan volume yang akan digunakan oleh Pod ini.
+      volumes:
+      - name: log-data              # Nama ini harus cocok dengan 'volumeMounts.name'.
+        # Menentukan tipe volume adalah 'hostPath'.
+        hostPath:
+          # Path direktori di mesin HOST (Node Kubernetes).
+          path: /mnt/data
+          # Jika direktori tidak ada, Kubernetes akan membuatnya.
+          type: DirectoryOrCreate

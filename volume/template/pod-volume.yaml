@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx
+  labels:
+    label-key1: label-value1
+    label-key2: label-value2
+spec:
+  volumes:
+    - name: volume-name
+      emptyDir: {}
+  containers:
+    - name: container-name
+  volumeMounts:
+    - mountPath: /app/volume
+      name: volume-name
