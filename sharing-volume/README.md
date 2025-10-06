@@ -4,6 +4,9 @@
 ## TOPOLOGI SHARING VOLUME
 ![topologi-sharing-volume](./image/topologi-sharing-volume.png)
 
+## Alur Kerja Sharing Volume Aplikasi NodeJS dan WebServer Nginx
+Kedua Container menggunakan 1 volume yang sama bernama *html* dan kedua container terhubung ke volume tersebut yang membuat NodeJS berbagi file *index.html*nya yang ada di direktori */app/html* ke Volume *html* dan Nginx hanya akan menampilkan hasil volume html yang telah di sharing volume dari NodeJS, Karena volume *html* telah dipasang ke direktori */usr/share/nginx/html* yang terhubung langsung dengan tampilan webserver Nginx.
+
 ## Implementasi Sharing Volume
 
 1. Running ReplicaSet, Pod, Service
