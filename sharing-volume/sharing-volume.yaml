@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      web: nginx
+  template:
+    metadata:
+      name: nginx
+      labels: 
+        web: nginx
+    spec: 
+      volumes:
+        # Membuat sebuah Volume bernama HTML
+        - name: html
+          emptyDir: {}
+      containers:
+        - name: nodejs-writer
+          image: mochabdulrouf/nodejs-writer-v3
+          volumeMounts:
+            # Mount Volume html pasang ke direktori /app/html
+            - mountPath: /app/html
+              name: html
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            # Mount Volume yang sama dan pasang ke direktori /usr/share/nginx/html
+            # Secara otomatis Nginx mengambil tampilan code NodeJS yang ada di Volume karena adanya VolumeMounts
+            - mountPath: /usr/share/nginx/html
+              # Menggunakan Volume yang sama dengan Container NodeJS
+              name: html
+        
+---
+  
+apiVersion: v1 
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  # Mencari Pod dengan Label web: nginx
+  selector:
+    web: nginx 
+  ports:
+    - port: 8082
+      targetPort: 80
+      nodePort: 30002
