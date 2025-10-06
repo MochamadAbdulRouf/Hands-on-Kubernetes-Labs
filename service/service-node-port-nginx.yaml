@@ -30,7 +30,10 @@ spec:
   selector:
     web: nginx
   ports:
+      # Port Internal Cluster
     - port: 80
+      # Port yang ada didalam container contoh Nginx
       targetPort: 80
+      # Port External di setiap Node
       # Rentang NodePort 30000-32767
       nodePort: 30001
