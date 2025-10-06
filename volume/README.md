@@ -60,3 +60,4 @@ index.html
 ```
 
 Note: diatas bisa dilihat bahwa ketika masuk ke container dia langsung masuk ke direktori app karena itu di Dockerfilenya bagian WORKDIR di isi /app, Karena itu ketika masuk ke container otomatis masuk ke direktori /app
+```
