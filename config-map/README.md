@@ -18,6 +18,9 @@ Begitu pula dengan aplikasi. Daripada menulis "tingkat kesulitan" di dalam kode 
 Seperti itulah Deskripsi sederhananya supaya lebih paham Config Map
 
 
+## TOPOLOGI Config Map
+![topologi-config-map](./image/topologi-config-map.png)
+
 ## Implementasi Config Map
 Berikut penerapan Config Map pada Cluster Kubernetes.
 
@@ -186,3 +189,8 @@ NODEJS_ENV_SERV_PORT_2122_TCP_ADDR=172.20.192.160
 
 5. Melihat langsung hasil Key dan Value yang di tulis di file oleh aplikasi NodeJS lewat Browser langsung.
 ![volume-configmap-ss](./image/config-map-volume.png)
+
+6. Cara delete sebuah Config Map
+```bash
+kubectl delete configmap namaconfigmap
+```
