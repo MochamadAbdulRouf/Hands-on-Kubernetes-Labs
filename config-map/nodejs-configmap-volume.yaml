@@ -9,7 +9,7 @@ data:
   # Ke dalam file tersebut
   app.properties: |
     APP_VERSION=2.1.2
-    NODE_ENV=Production"
+    NODE_ENV=Production
 
 ---
 
