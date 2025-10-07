@@ -54,7 +54,7 @@ APP_VERSION:  5 bytes
 NODE_ENV:     10 bytes
 ```
 
-5. Melihat data Secret yang dimasukan ke environment didalam Container
+5. Melihat Key Value Data Secret yang dimasukan ke Environment Variable didalam Container
 ```bash
 controlplane ~/secret-nodejs ➜  kubectl exec nodejs-env-7hs4r -it -- /bin/sh
 /app # env
