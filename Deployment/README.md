@@ -2,7 +2,7 @@
 Deployment adalah fitur dari Kubernetes yang dapat digunakan untuk melakukan deployment dan update aplikasi secara deklaratif menggunakan file konfigurasi.
 Mengapa harus menggunakan fitur Deployment dikarenakan jika kita melakukan update dengan cara manual itu sangat beresiko bisa mengakibatkan Aplikasi downtime, Sehingga aplikasi tidak dapat di akses.Saat melakukan Deployment secara otomatis Kubernetes akan membuat ReplicaSet, yang mana ReplicaSet akan secara otomatis membuat Pod.Membuat Deployment hampir sama seperti membuat ReplicaSet.
 
-## Toplogi Deployment
+## Topologi Deployment
 ![tp-deployment](./image/topologi-deployment.png)
 
 ## Implementasi Deployment
