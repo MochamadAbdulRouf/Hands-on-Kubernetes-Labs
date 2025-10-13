@@ -53,7 +53,7 @@ NAME             SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 cronjob-nodejs   * * * * *   <none>     False     0        <none>          21s
 ```
 
-4. Melihat Logs CronJob dari Aplikasi NodeJS jadi Aplikasi NodeJS apakah terus Running setiap Menit dan membuat console.log lalu Kubernetes menyimpannya sebagai data log yang terikat dengan Pod.
+4. Melihat Logs CronJob dari Aplikasi NodeJS, jadi Aplikasi NodeJS akan Running setiap Menit sesuai Jadwal yang di tentukan CronJob pada file konfigurasi dan membuat console.log lalu Kubernetes menyimpannya sebagai data log yang terikat dengan Pod.
 ```bash
 controlplane ~/cronjob-kube ➜  kubectl logs cronjob-nodejs-29339011-n2sjt 
 --- Memulai Tugas: Menghitung Bilangan Prima hingga 20000 ---
