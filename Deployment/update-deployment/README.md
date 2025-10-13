@@ -3,7 +3,7 @@ Untuk Update Deployment itu mudah banget, Tinggal gunakan command kubectl apply 
 
 ## Implementasi
 
-1. bisa di lihat disini mempunyai service
+1. Disini saya sudah running file konfig Deployment sebelumnya
 ```bash
 controlplane ~ ➜  kubectl get all
 NAME                             READY   STATUS    RESTARTS   AGE
@@ -22,12 +22,11 @@ NAME                                   DESIRED   CURRENT   READY   AGE
 replicaset.apps/nodejs-web-878f8bc9c   3         3         3       20s
 ```
 
-2. di kode file konfig "deployment-update" di situ tidak terdapat service, hanya terdapat image dengan tag berbeda.Saya akan coba running file konfignya
+2. Di kode file konfig "deployment-update", terdapat perbedaan servicenya tidak ada karena service tidak perlu di update.Jadi ketika di running dengan file konfig berbeda hasilnya service tetap ada karena tidak mengalami update.Hanya perubahan di Deployment terdapat update pada versi image.
 - Update Deployment
 ```bash
 kubectl apply -f deployment-update.yaml
 ```
-note: di file tersebut mirip dengan file deployment biasa yang ada di direktori Deployment, cuman servicenya saya hilangkan karena service akan tetap ada hanya perubahan konfig didalam file pada bagian Deployment.
 
 3. Running Update Deployment
 ```bash
