@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-web
+  labels:
+    app: nodejs 
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      name: nodejs-web 
+      labels:
+        app: nodejs
+    spec:
+      containers:
+        - name: nodejs-web 
+          image: mochabdulrouf/nodejs-focustimer-app:2.0
+          ports:
+            - containerPort: 2122
