@@ -1,6 +1,6 @@
 # Downward API
 
-Konfigurasi yang di set manual bisa di tangani menggunakan Config Map dan Secret, Namun ada juga Konfigurasi Dinamis seperti informarsi Pod dan Node.Downward API bisa menangani hal tersebut dengan mengambi informarsi Pod dan Node melalui Environment Variable.Kata API pada Downward bukan bermakna RESTful API, Ini hanya cara untuk mendapatkan informarsi seputar Node dan Pod.
+Konfigurasi yang di set manual bisa di tangani menggunakan Config Map dan Secret, Namun ada juga Konfigurasi Dinamis seperti informarsi Pod dan Node.Downward API bisa menangani hal tersebut dengan mengambil informarsi Pod dan Node melalui Environment Variable.Kata API pada Downward bukan bermakna RESTful API, Ini hanya cara untuk mendapatkan informarsi seputar Node dan Pod.
 
 ## Apa perbedaannya dengan kita menggunakan command "kubectl describe .." pada Node atau Pod ?
 Perbedaannya Downward API digunakan untuk memberikan seputar informarsi Pod atau Node kepada Aplikasi didalam Pod karena Aplikasi didalam Pod itu seperti terkurung tidak punya akses command "kubectl".Jadi singkatnya memberikan informarsi mengenai lingkungannya ke Aplikasi itu sendiri.
