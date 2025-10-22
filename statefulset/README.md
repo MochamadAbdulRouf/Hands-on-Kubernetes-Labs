@@ -44,7 +44,7 @@ statefulset.apps/nodejs-stateful   3/3     66s
 ```
 
 3. Mencoba mengakses aplikasi NodeJS di browser, Ketika di Refresh websitenya maka aplikasi NodeJS akan mencatat setiap traffic yang masuk.
-![ss-statefulset-browser]()
+![ss-statefulset-browser](./image/screenshot_nodejs_statefulset.png)
 
 4. Jika coba dilihat di Log Pod memang seperti terlihat error bahwa file (state.json) tidak ditemukan.Namun itu adalah Log awal, Kubernetes tidak akan mencatat Log baru dari sebuah aplikasi. Karena file (state.json) hanya akan dibuat jika Pod sudah running tanpa error jadi ketika Pod pertama kali running maka akan di catat bahwa file tersebut tidak ada di dalam Pod.
 ```bash
