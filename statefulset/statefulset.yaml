@@ -19,6 +19,7 @@ metadata:
   labels:
     app: nodejs-statefulset
 spec:
+  # https://github.com/kubernetes/kubernetes/issues/69608
   serviceName: nodejs-statefulset-service
   replicas: 1
   selector:
