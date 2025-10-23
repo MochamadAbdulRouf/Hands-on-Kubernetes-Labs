@@ -119,3 +119,42 @@ Events:
   Normal  Started    3m21s  kubelet            Started container nodejs-web
 ```
 
+note error:
+- Saya mengalami error "Loop Back Off" di Playground Cloud lain mungkin dikarenakan Permission yang tidak mengizinkan user biasa untuk melakukan setting Limit dan Request resource CPU dan Ram pakai Kubernetes atau Kernel Linux playground tersebut tidak mengerti atau tidak menerima nilai 50000 ( cara nilai itu ditulis) untuk konfigurasi cpu.cfs_quota_us. berikut log errornya :
+
+1. Log error CrashLoopBackOff saat saya melihat semua status resource
+```bash
+controlplane ~/deployment ➜  kubectl get all
+NAME                              READY   STATUS             RESTARTS      AGE
+pod/nodejs-web-5678845599-fmmjb   0/1     CrashLoopBackOff   6 (63s ago)   7m2s
+pod/nodejs-web-5678845599-h8jfq   0/1     CrashLoopBackOff   6 (62s ago)   7m2s
+pod/nodejs-web-5678845599-qlkhv   0/1     CrashLoopBackOff   6 (49s ago)   7m2s
+
+NAME                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes       ClusterIP   172.20.0.1       <none>        443/TCP          64m
+service/nodejs-service   NodePort    172.20.232.111   <none>        2022:30002/TCP   7m3s
+
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nodejs-web   0/3     3            0           7m4s
+
+NAME                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/nodejs-web-5678845599   3         3         0       7m4s
+```
+
+2. Log event pada salah satu Pod yang mengalami Error tersebut
+```bash
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  3m31s                default-scheduler  Successfully assigned default/nodejs-web-5678845599-qlkhv to node01
+  Normal   Pulled     3m15s                kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 207ms (12.295s including waiting). Image size: 50651796 bytes.
+  Normal   Pulled     3m12s                kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 295ms (295ms including waiting). Image size: 50651796 bytes.
+  Normal   Pulled     2m55s                kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 142ms (142ms including waiting). Image size: 50651796 bytes.
+  Normal   Pulled     2m31s                kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 132ms (132ms including waiting). Image size: 50651796 bytes.
+  Normal   Pulled     98s                  kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 144ms (144ms including waiting). Image size: 50651796 bytes.
+  Normal   Pulling    5s (x6 over 3m27s)   kubelet            Pulling image "mochabdulrouf/nodejs-focustimer-app"
+  Normal   Created    4s (x6 over 3m15s)   kubelet            Created container: nodejs-web
+  Warning  Failed     4s (x6 over 3m14s)   kubelet            Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error setting cgroup config for procHooks process: failed to write "50000": write /sys/fs/cgroup/cpu,cpuacct/kubepods/podd2ca4005-dd77-4317-b105-70160682c2ba/nodejs-web/cpu.cfs_quota_us: invalid argument: unknown
+  Normal   Pulled     4s                   kubelet            Successfully pulled image "mochabdulrouf/nodejs-focustimer-app" in 164ms (164ms including waiting). Image size: 50651796 bytes.
+  Warning  BackOff    3s (x16 over 3m11s)  kubelet            Back-off restarting failed container nodejs-web in pod nodejs-web-5678845599-qlkhv_default(d2ca4005-dd77-4317-b105-70160682c2ba)
+  ```
