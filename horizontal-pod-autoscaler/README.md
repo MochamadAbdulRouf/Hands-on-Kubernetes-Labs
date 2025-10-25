@@ -34,7 +34,7 @@ kubectl edit deployment metrics-server -n kube-system
 ```
 
 3. Tambahkan argumen pada bagian berikut
-note: ini digunakan untuk memberitahu Metric Server untuk melewati verifikasi sertifikat TLS saats menghubungi Kubelet, Jika tidak diberi argumen ini nantinya akan terjadi error verifikasi TLS dan Readiness Probe gagal.Ini biasnaya terjadi di Cluster Lokal atau self managed.
+- note: ini digunakan untuk memberitahu Metric Server untuk melewati verifikasi sertifikat TLS saat menghubungi Kubelet, Jika tidak diberi argumen ini nantinya akan terjadi error verifikasi TLS dan Readiness Probe gagal.Ini biasnaya terjadi di Cluster Lokal atau self managed.
 ```bash
  template:
     metadata:
@@ -54,7 +54,7 @@ note: ini digunakan untuk memberitahu Metric Server untuk melewati verifikasi se
         imagePullPolicy: IfNotPresent
 ```
 
-4. Simpan file konfig nantinya otomatsis Kubernetes akan mendeteksi ada perubahan pada Deployment dan akan membuat ulang Pod metric server.
+4. Simpan file konfig Deployment nantinya otomatis Kubernetes akan mendeteksi ada perubahan pada Deployment dan akan membuat ulang metric server.
 
 ## IMPLEMENTASI HORIZONTAL POD AUTOSCALER 
 
