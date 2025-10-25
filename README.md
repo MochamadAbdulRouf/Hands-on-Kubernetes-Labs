@@ -34,9 +34,14 @@ Biar saya bisa:
 ---
 
 ## 🗿 Di buat dengan :
- ❤️ Learn with Enjoy 
- ☕ Coffee (Biar ga ngantuk)
+ - ❤️ Learn with Enjoy 
+ - ☕ Coffee (Biar ga ngantuk)
 
 ## 💾 Visit juga ke Project pertama Kubernetes aku, Nih linknya 
 https://github.com/MochamadAbdulRouf/myz-universe-reader 
-- Maybe project itu bisa bantu kamu belajar, Sorry kalau belum paham lalu ada kesalahan hehehe.
+- Maybe project itu bisa bantu kamu belajar, Sorry kalau belum paham lalu ada kesalahan didalam project saya hehehe.
+
+
+ semua kritik, saran, dan masukan sangat saya terima, email saya ke alamat email berikut
+ 
+ mochamadabdulrouf1@gmail.com 
