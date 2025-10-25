@@ -1,6 +1,6 @@
-# 🚀 Full Kubernetes Learning Project  
+# 🚀 Kubernetes Learning Project  
 
-Hai 👋 Welcome guys di project **Full Materi Kubernetes** buatan saya!  
+Hai 👋 Welcome guys di project **Materi Kubernetes** buatan saya!  
 Project ini saya buat sebagai tempat belajar dan eksperimen semua hal tentang **Kubernetes** Mulai dari memahami basic-basicnya sampai seluk beluk inti di Kubernetes 
 
 ---
