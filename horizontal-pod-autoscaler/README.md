@@ -21,7 +21,7 @@ Horizontal Pod Autoscaler adalah cara aplikasi secara otomatis menambahkan Pod b
 ![tp-horizontal-pod-autoscaler](./image/horizontal-topologi.png)
 
 ## Menambahkan addon Metric Server di Kubernetes 
-Metric server penting untuk mengumpulkan data rata rata cpu dan memory dari Node dan Pod.Nantinya Metric server bisa gunakan oleh HPA untuk mengukur kapan waktunya menambahkan dan mengurangi Pod.
+Metric server penting untuk mengumpulkan data rata rata cpu dan memory dari Node dan Pod.Nantinya Metric server bisa gunakan oleh HPA untuk mengukur kapan waktunya menambahkan dan mengurangi Pod secara otomatis.
 
 1. Membuat Deployment Metric Server 
 ```bash 
