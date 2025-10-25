@@ -43,5 +43,4 @@ https://github.com/MochamadAbdulRouf/myz-universe-reader
 
 
  semua kritik, saran, dan masukan sangat saya terima, email saya ke alamat email berikut
- 
  mochamadabdulrouf1@gmail.com 
