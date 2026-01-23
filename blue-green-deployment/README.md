@@ -3,7 +3,7 @@ Blue-Green Deployment adalah strategi rilis aplikasi di mana Anda memiliki dua l
 Dalam konteks Kubernetes, ini berarti memiliki dua versi aplikasi (Deployment) yang berjalan di dalam cluster yang sama, tetapi trafik user hanya diarahkan ke satu versi pada satu waktu.
 
 ## Example Topology Blue Green Deployment
-![tp-blue-green](.\image\topologi-blue-green-deployment.png)
+![tp-blue-green](./image/topologi-blue-green-deployment.png)
 
 ### Implementasi Blue Green Deployment
 
