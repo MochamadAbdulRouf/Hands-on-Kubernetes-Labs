@@ -42,5 +42,5 @@ https://github.com/MochamadAbdulRouf/myz-universe-reader
 - Maybe project itu bisa bantu kamu belajar terjun langsung hands on project, semoga paham yaaa hehehehe.
 
 
- semua kritik, saran, dan masukan sangat aku terima, email saya ke alamat email berikut
+ semua kritik, saran, dan masukan sangat aku terima, email aku di alamat email berikut
  mochamadabdulrouf1@gmail.com
