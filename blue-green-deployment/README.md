@@ -61,7 +61,7 @@ kubectl create deployment green --image httpd --replicas 3 --n blue-green
 kubectl edit svc blue-green-service -n blue-green
 ```
 
-8. Ganti selector servicenya menjadi dari label aplikasi blue menjadi green
+8. Ganti selector servicenya dari label aplikasi blue menjadi green
 ![edit-service](./image/service-selector.png)
 
 9. testing menggunakan IP dan NodePort
