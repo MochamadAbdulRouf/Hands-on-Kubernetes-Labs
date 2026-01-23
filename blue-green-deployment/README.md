@@ -82,7 +82,7 @@ root@rouf:~# curl 192.168.101.79:32754
 </html>
 ```
 
-10. Lalu coba implementasikan ganti menjadi selector label ke aplikasi blue, setelah itu testing
+10. Lalu coba implementasikan ulang ganti menjadi selector label ke aplikasi blue, setelah itu testing
 ```bash
 root@rouf:~# curl 192.168.101.79:32754
 <!DOCTYPE html>
@@ -109,3 +109,8 @@ Commercial support is available at
 </body>
 </html>
 ```
+
+### Benefit menggunakan blue green deployment
+1. Instant Rollback	Jika versi Green error setelah switch, Anda tinggal ubah selector balik ke version: v1 atau mengubah selector label Blue pada service aplikasi. Masalah selesai dalam hitungan detik.
+2. Zero Downtime	User tidak merasakan putus koneksi karena kedua environment sudah ready sebelum switch dilakukan.
+3. Testing Real	Anda bisa mengetes versi baru di infrastruktur production yang sesungguhnya sebelum trafik dibuka.
