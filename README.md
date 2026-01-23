@@ -1,24 +1,24 @@
 # 🚀 Kubernetes Learning Project  
 
-Hai 👋 Welcome guys di project **Materi Kubernetes** buatan saya!  
-Project ini saya buat sebagai tempat belajar dan eksperimen semua hal tentang **Kubernetes** Mulai dari memahami basic-basicnya sampai seluk beluk inti di Kubernetes 
+Hai 👋 Welcome guys di project **Materi Kubernetes** buatanku!  
+Project ini aku buat sebagai tempat belajar dan eksperimen semua hal tentang **Kubernetes** Mulai dari memahami basic-basicnya sampai seluk beluk inti di Kubernetes 
 
 ---
 
 ## 🌊 Tentang Project Ini
-Di sini kamu bakal nemuin kumpulan materi dan praktik langsung seputar Kubernetes, mulai dari:  
+Di sini aku mengimplementasikan dengan kumpulan materi dan praktik langsung seputar Kubernetes, mulai dari:  
 - 📦 Cara kerja container & arsitektur Kubernetes  
 - ⚙️ Deploy dan scaling aplikasi  
 - 🌐 Service, Ingress, dan Networking  
 - 🗄️ Persistent Volume, ConfigMap, Secret  
-- DLL. Judul Materi saya jadikan nama folder.   
+- DLL. Judul Materi aku jadikan nama folder.   
 
-Semua saya tulis dengan gaya *belajar santai tapi serius*, lengkap dengan contoh konfigurasi dan penjelasan step by step 🤯👾
+Semua aku tulis dengan gaya *belajar santai tapi serius*, lengkap dengan contoh konfigurasi dan penjelasan step by step 🤯👾
 
 ---
 
 ## 💡 Tujuan Project
-Biar saya bisa:  
+Biar aku bisa:  
 - Memahami dasar Kubernetes dengan cara praktis  
 - Membangun cluster dari nol  
 - Deploy aplikasi secara otomatis  
@@ -34,13 +34,13 @@ Biar saya bisa:
 ---
 
 ## 🗿 Di buat dengan :
- - ❤️ Learn with Enjoy 
+ - ❤️ Love
  - ☕ Coffee (Biar ga ngantuk)
 
-## 💾 Visit juga ke Project pertama Kubernetes aku, Nih linknya 
+## 💾 Oh iya, boleh juga lihat Project pertama Kubernetes aku, Nih linknya 
 https://github.com/MochamadAbdulRouf/myz-universe-reader 
 - Maybe project itu bisa bantu kamu belajar, Sorry kalau belum paham lalu ada kesalahan didalam project saya hehehe.
 
 
- semua kritik, saran, dan masukan sangat saya terima, email saya ke alamat email berikut
- mochamadabdulrouf1@gmail.com 
+ semua kritik, saran, dan masukan sangat aku terima, email saya ke alamat email berikut
+ mochamadabdulrouf1@gmail.com
