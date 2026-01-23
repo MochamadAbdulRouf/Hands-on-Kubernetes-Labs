@@ -39,7 +39,7 @@ Biar aku bisa:
 
 ## 💾 Oh iya, boleh juga lihat Project pertama Kubernetes aku, Nih linknya 
 https://github.com/MochamadAbdulRouf/myz-universe-reader 
-- Maybe project itu bisa bantu kamu belajar, Sorry kalau belum paham lalu ada kesalahan didalam project saya hehehe.
+- Maybe project itu bisa bantu kamu belajar terjun langsung hands on project, semoga paham yaaa hehehehe.
 
 
  semua kritik, saran, dan masukan sangat aku terima, email saya ke alamat email berikut
