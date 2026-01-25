@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: canary
+  name: canary
+#  namespace: canary // example jika menggunakan namespace akan muncul ini
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: main # before that this is canary
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: main # before that this is canary
+    spec:
+      containers:
+        - image: httpd
+          name: httpd
+          resources: {}
+status: {}

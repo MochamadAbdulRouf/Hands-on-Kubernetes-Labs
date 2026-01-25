@@ -1,0 +1,228 @@
+# dashboard-nodeport.yaml
+# File ini menggabungkan manifest standar Dashboard v2.7.0
+# dengan modifikasi pada Service untuk menggunakan NodePort.
+
+# --- Namespace ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubernetes-dashboard
+
+---
+# --- Service Account ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+
+---
+# --- Role ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+
+rules:
+  # Allow Metrics Scraper to get metrics from the Metrics server
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list", "watch"]
+  # Allow Dashboard authentication metrics
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["dashboard-metrics"]
+    verbs: ["get"]
+  # Allow Dashboard to get, list and watch secrets holding configuration settings
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["kubernetes-dashboard-settings"]
+    verbs: ["get", "list", "watch", "update"]
+  # Allow Dashboard to get, list and watch its own configmap
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["kubernetes-dashboard-settings"]
+    verbs: ["get", "list", "watch"]
+  # Allow Dashboard to get, list and watch its CSRF token secret
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["kubernetes-dashboard-csrf"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+  # Allow Dashboard to list PersistentVolumeClaims
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["list", "watch"]
+  # Allow Dashboard to list PersistentVolumes
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["list", "watch"]
+  # Allow Dashboard to list StorageClasses
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["list", "watch"]
+  # Allow Dashboard to get, list and watch Pods stored in Cache
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  # Allow Dashboard to get, list and watch Nodes stored in Cache
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list", "watch"]
+  # Required by Cache to Update and Delete Pods/Nodes
+  - apiGroups: [""]
+    resources: ["pods", "nodes"]
+    verbs: ["update", "delete"]
+  # Required by scrapeMetrics() method in dashboard-metrics-scraper cache.js file
+  - apiGroups: [""]
+    resources: ["services", "endpoints"]
+    verbs: ["get"]
+
+---
+# --- ClusterRole (Minimal Permissions) ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+rules:
+  # Allow Metrics Scraper to get metrics from the Metrics server
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list", "watch"]
+  # Allow Dashboard to get, list and watch namespaces
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list", "watch"]
+  
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["kubernetes-dashboard-key-holder", "kubernetes-dashboard-csrf"] # Lebih spesifik jika memungkinkan
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+
+---
+# --- Role Binding ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+  namespace: default
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kubernetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+
+
+---
+# --- ClusterRole Binding ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubernetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+
+
+---
+# --- Deployment ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: kubernetes-dashboard
+  template:
+    metadata:
+      labels:
+        k8s-app: kubernetes-dashboard
+    spec:
+      containers:
+        - name: kubernetes-dashboard
+          image: kubernetesui/dashboard:v2.7.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          args:
+            - --auto-generate-certificates
+            - --namespace=kubernetes-dashboard
+            # Following args are required for metrics-server to work.
+            # For more information see: https://github.com/kubernetes/dashboard/issues/6763
+            - --token-ttl=43200
+            - --metrics-provider=standard
+            # Comment the following line if you don't want Kubernetes directory watch system
+            # updates endpoints based on delivered notifications right after Pod startup.
+            - --enable-skip-login
+          volumeMounts:
+            - name: kubernetes-dashboard-certs
+              mountPath: /certs
+              # Create on-disk volume to store exec logs
+            - mountPath: /tmp
+              name: tmp-volume
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /
+              port: 8443
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsUser: 1001
+            runAsGroup: 2001
+      volumes:
+        - name: kubernetes-dashboard-certs
+          secret:
+            secretName: kubernetes-dashboard-certs
+        - name: tmp-volume
+          emptyDir: {}
+      serviceAccountName: kubernetes-dashboard
+      nodeSelector:
+        "kubernetes.io/os": linux
+      # Comment the following tolerations if Dashboard must not be deployed on master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+
+---
+# --- SERVICE (BAGIAN YANG DIMODIFIKASI) ---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+spec:
+  # --- PERUBAHAN DI SINI ---
+  # Mengubah tipe Service menjadi NodePort
+  type: NodePort
+  ports:
+    - port: 443
+      targetPort: 8443
+      # (Opsional) Kamu bisa tentukan NodePort spesifik (30000-32767)
+      # Jika tidak ditentukan, Kubernetes akan memilih secara acak.
+      nodePort: 30010 
+  selector:
+    k8s-app: kubernetes-dashboard
