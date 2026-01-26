@@ -1,6 +1,9 @@
 # Canary Deployment
 Canary Deployment adalah strategi rilis aplikasi dimana versi baru (canary) hanya diberikan ke sebagian kecil user atau traffic terlebih dahulu, sementara mayoritas user masih menggunakan versi lama (stable).Tujuan untuk menguji versi baru langsung ke production dengan risiko minimal.
 
+## Topologi
+[topologi canary](./image/tp-canary-deployment.gif)
+
 ## Keuntungan menggunakan Canary Deployment
 1. Risiko jauh lebih kecil seperti bug berdampak ke sedikit user
 2. Data & Traffic real, lebih akurat dibanding testing di staging
