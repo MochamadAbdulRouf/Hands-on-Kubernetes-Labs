@@ -34,6 +34,20 @@ EOF
 echo "File eks-cluster.yaml berhasil dibuat dengan LabRole ARN: $LAB_ROLE_ARN"
 ```
 
+Setup tools eksctl agar bisa membuat cluster
+1. Unduh tools `eksctl` versi terbaru
+```bash
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+```
+2. Memindahkan binner `eksctl` ke `/usr/local/bin` agar bisa digunakan.
+```bash
+sudo mv /tmp/eksctl /usr/local/bin
+```
+3. Verifikasi installasi
+```bash
+eksctl version
+```
+
 Memulai pembuatan cluster 
 ```bash
 eksctl create cluster -f eks-cluster.yaml
